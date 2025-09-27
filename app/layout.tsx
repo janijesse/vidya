@@ -1,23 +1,45 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Nunito, Comfortaa } from 'next/font/google';
 
 import { Layout } from '@/Components/Layout';
 import Providers from './Providers';
 import './globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const nunito = Nunito({
+  variable: '--font-nunito',
   subsets: ['latin'],
+  display: 'swap',
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const comfortaa = Comfortaa({
+  variable: '--font-comfortaa',
   subsets: ['latin'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: 'Hypergraph + Nextjs',
-  description: 'Hypergraph-enabled nextjs starter app',
+  title: 'Vidya Bridge - Educational Sponsorship Platform',
+  description: 'Transparent educational sponsorship for children in India using blockchain technology',
+  keywords: ['education', 'sponsorship', 'blockchain', 'transparency', 'India', 'children'],
+  authors: [{ name: 'Vidya Bridge Team' }],
+  openGraph: {
+    title: 'Vidya Bridge - Educational Sponsorship Platform',
+    description: 'Transparent educational sponsorship for children in India using blockchain technology',
+    type: 'website',
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Vidya Bridge - Educational Sponsorship Platform',
+    description: 'Transparent educational sponsorship for children in India using blockchain technology',
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' }
+    ],
+    apple: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
@@ -27,7 +49,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}>
+      <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
+      <body className={`${nunito.variable} ${comfortaa.variable} antialiased h-full`}>
         <Providers>
           <Layout>{children}</Layout>
         </Providers>

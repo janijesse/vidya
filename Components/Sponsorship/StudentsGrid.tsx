@@ -1,104 +1,106 @@
 'use client';
 
-import { useHypergraphQuery } from '@graphprotocol/hypergraph-react';
-import { Student, Donation, Sponsor } from '@/app/schema';
-import { Card } from '@/Components/ui/button';
+import { useState } from 'react';
 import { Button } from '@/Components/ui/button';
-import { MapPin, Target, Star, Heart } from 'lucide-react';
+import { Heart, Star } from 'lucide-react';
+
+const mockStudents = [
+  {
+    id: 'IND-STU-001',
+    name: 'Student 001',
+    goal: 500,
+    raised: 320,
+    region: 'Northern India',
+    description: 'Passionate about mathematics and science. Dreams of becoming an engineer.',
+    avatar: '👩‍🎓'
+  },
+  {
+    id: 'IND-STU-002', 
+    name: 'Student 002',
+    goal: 400,
+    raised: 180,
+    region: 'Southern India',
+    description: 'Loves reading and writing. Wants to study literature at university.',
+    avatar: '👨‍🎓'
+  },
+  {
+    id: 'IND-STU-003',
+    name: 'Student 003',
+    goal: 600,
+    raised: 450,
+    region: 'Eastern India',
+    description: 'Interested in medicine and helping others. Aspires to be a doctor.',
+    avatar: '👩‍⚕️'
+  }
+];
 
 export function StudentsGrid() {
-  // Query students from Hypergraph
-  const { data: students, loading: studentsLoading } = useHypergraphQuery({
-    entity: Student,
-    where: { isActive: true },
-  });
+  const [donatingTo, setDonatingTo] = useState<string | null>(null);
+  const [donationAmount, setDonationAmount] = useState('');
 
-  const { data: donations } = useHypergraphQuery({
-    entity: Donation,
-    where: { status: 'confirmed' },
-  });
+  const handleDonate = (studentName: string) => {
+    if (!donationAmount || parseFloat(donationAmount) <= 0) {
+      alert('Please enter a valid donation amount');
+      return;
+    }
 
-  if (studentsLoading) {
-    return (
-      <section className="py-16 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center">
-            <p className="text-muted-foreground">Loading students...</p>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  // Calculate total raised for each student
-  const getStudentTotalRaised = (studentId: string) => {
-    if (!donations) return 0;
-    return donations
-      .filter(donation => donation.student?.id === studentId)
-      .reduce((total, donation) => total + donation.amount, 0);
+    alert(`Donation of ${donationAmount} USDC to ${studentName} recorded! 🎉\n\nNote: This is a demo. In production, this would interact with the smart contract.`);
+    
+    setDonatingTo(null);
+    setDonationAmount('');
   };
 
   return (
-    <section id="students" className="py-16 px-4 relative">
+    <section className="py-16 px-4">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold mb-4">Students Needing Support</h2>
           <p className="text-muted-foreground text-lg">
-            Help these bright students achieve their educational goals through transparent blockchain donations
+            Help these students achieve their educational goals
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {students?.map((student, index) => {
-            const totalRaised = getStudentTotalRaised(student.id);
-            const progress = (totalRaised / student.monthlyGoal) * 100;
+          {mockStudents.map((student, index) => {
+            const progress = (student.raised / student.goal) * 100;
             const gradients = [
-              "from-blue-500/20 to-blue-500/5",
-              "from-green-500/20 to-green-500/5",
-              "from-purple-500/20 to-purple-500/5",
+              "from-primary/20 to-primary/5",
+              "from-secondary/20 to-secondary/5", 
+              "from-accent/20 to-accent/5",
             ];
 
-            const subjects = student.subjects ? JSON.parse(student.subjects) : [];
-
             return (
-              <Card
+              <div
                 key={student.id}
-                className={`p-6 bg-gradient-to-br ${gradients[index % gradients.length]} backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:border-blue-500/50 transition-all duration-300 group hover:shadow-lg`}
+                className={`p-6 bg-gradient-to-br ${gradients[index % gradients.length]} border border-border rounded-lg hover:shadow-lg transition-all duration-300`}
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
-                    {student.avatar || "🎓"}
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-2xl">
+                    {student.avatar}
                   </div>
                   <div>
-                    <h3 className="font-semibold text-foreground">{student.name}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {student.age} years • {student.grade}
-                    </p>
+                    <h3 className="font-semibold text-foreground">{student.id}</h3>
+                    <div className="flex items-center gap-1">
+                      <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                      <span className="text-sm text-muted-foreground">{student.region}</span>
+                    </div>
                   </div>
-                  <div className="ml-auto">
-                    <Star className="w-5 h-5 text-yellow-500 fill-current" />
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-                  <MapPin className="w-4 h-4" />
-                  {student.location}
                 </div>
 
                 <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                  {student.description || "A dedicated student seeking educational support."}
+                  {student.description}
                 </p>
 
                 <div className="mb-4">
                   <div className="flex justify-between text-sm mb-2">
-                    <span className="text-muted-foreground">Monthly Goal</span>
+                    <span className="text-muted-foreground">Goal</span>
                     <span className="text-foreground font-medium">
-                      ${totalRaised.toFixed(2)} / ${student.monthlyGoal.toFixed(2)}
+                      {student.raised} USDC / {student.goal} USDC
                     </span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-3">
+                  <div className="w-full bg-muted rounded-full h-3">
                     <div
-                      className="bg-gradient-to-r from-blue-500 to-purple-500 h-3 rounded-full transition-all duration-300"
+                      className="bg-gradient-to-r from-primary to-secondary h-3 rounded-full transition-all duration-300"
                       style={{ width: `${Math.min(progress, 100)}%` }}
                     ></div>
                   </div>
@@ -107,38 +109,50 @@ export function StudentsGrid() {
                   </p>
                 </div>
 
-                {subjects.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {subjects.map((subject: string) => (
-                      <span
-                        key={subject}
-                        className="px-3 py-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-600 text-xs rounded-full border border-blue-500/20"
+                {donatingTo === student.id ? (
+                  <div className="space-y-3">
+                    <input
+                      type="number"
+                      step="0.001"
+                      placeholder="Amount (USDC)"
+                      value={donationAmount}
+                      onChange={(e) => setDonationAmount(e.target.value)}
+                      className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-background text-foreground"
+                    />
+                    <div className="flex gap-2">
+                      <Button
+                        onClick={() => handleDonate(student.id)}
+                        className="flex-1 bg-gradient-to-r from-secondary to-primary hover:from-secondary/90 hover:to-primary/90"
                       >
-                        {subject}
-                      </span>
-                    ))}
+                        Donate
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={() => setDonatingTo(null)}
+                        className="px-4"
+                      >
+                        Cancel
+                      </Button>
+                    </div>
                   </div>
+                ) : (
+                  <Button 
+                    onClick={() => setDonatingTo(student.id)}
+                    className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90"
+                  >
+                    <Heart className="w-4 h-4 mr-2" />
+                    Support Student
+                  </Button>
                 )}
-
-                <Button className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white shadow-md">
-                  <Heart className="w-4 h-4 mr-2" />
-                  Sponsor Student
-                </Button>
-              </Card>
+              </div>
             );
           })}
         </div>
 
-        {(!students || students.length === 0) && (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground text-lg">No students available at the moment.</p>
-          </div>
-        )}
-
         <div className="text-center mt-12">
-          <Button variant="outline" size="lg" className="bg-card/50 border-blue-500/20 hover:bg-blue-500/10">
-            View All Students
-          </Button>
+          <p className="text-muted-foreground">
+            All donations are recorded on the blockchain for complete transparency
+          </p>
         </div>
       </div>
     </section>

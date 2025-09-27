@@ -1,110 +1,64 @@
 'use client';
 
-import { useHypergraphAuth } from '@graphprotocol/hypergraph-react';
 import { StudentsGrid } from './StudentsGrid';
-import { StatsSection } from './StatsSection';
-import { HowItWorks } from './HowItWorks';
 import { Button } from '@/Components/ui/button';
-import { ArrowRight, Heart, Shield, BookOpen } from 'lucide-react';
+import { Heart, Shield, BookOpen } from 'lucide-react';
 
 export function SponsorshipPage() {
-  const { authenticated } = useHypergraphAuth();
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="py-20 px-4 relative">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold text-balance mb-6">
-              Transform Lives Through
-              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent">
-                {" "}Blockchain Education
+    <div className="min-h-screen bg-background relative">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-20 w-32 h-32 mandala-bg opacity-20" />
+        <div className="absolute bottom-20 right-20 w-40 h-40 mandala-bg opacity-15" />
+        <div className="absolute top-1/2 left-1/4 w-24 h-24 rangoli-pattern opacity-10" />
+      </div>
+      
+      <section className="py-16 px-4 relative z-10">
+        <div className="container mx-auto max-w-4xl">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              Support Students with
+              <span className="text-gradient">
+                {" "}Blockchain Transparency
               </span>
             </h1>
-            <p className="text-xl text-muted-foreground text-balance max-w-3xl mx-auto mb-8">
-              Support students directly with complete transparency. Every donation is tracked on-chain, 
-              ensuring your contribution reaches those who need it most.
+            <p className="text-lg text-muted-foreground mb-8">
+              Help students achieve their educational goals. Every donation is tracked on-chain for complete transparency.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="text-lg px-8 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 shadow-lg"
-              >
-                Sponsor a Student
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="text-lg px-8 bg-card/50 border-blue-500/20 hover:bg-blue-500/10"
-              >
-                Learn More
-              </Button>
-            </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mt-16">
-            <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                <Heart className="w-10 h-10 text-blue-500" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-foreground">Direct Impact</h3>
-              <p className="text-muted-foreground">Your donation reaches students directly without intermediaries</p>
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="text-center p-6 bg-card rounded-lg shadow border border-border">
+              <Heart className="w-8 h-8 text-primary mx-auto mb-3" />
+              <h3 className="font-semibold mb-2">Direct Impact</h3>
+              <p className="text-sm text-muted-foreground">Your donation reaches students directly</p>
             </div>
-            <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-to-br from-green-500/20 to-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                <Shield className="w-10 h-10 text-green-500" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-foreground">Total Transparency</h3>
-              <p className="text-muted-foreground">Track every transaction and educational progress on blockchain</p>
+            <div className="text-center p-6 bg-card rounded-lg shadow border border-border">
+              <Shield className="w-8 h-8 text-secondary mx-auto mb-3" />
+              <h3 className="font-semibold mb-2">Transparent</h3>
+              <p className="text-sm text-muted-foreground">All transactions recorded on blockchain</p>
             </div>
-            <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-500/20 to-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                <BookOpen className="w-10 h-10 text-purple-500" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-foreground">Verifiable Progress</h3>
-              <p className="text-muted-foreground">Receive verified updates on academic progress</p>
+            <div className="text-center p-6 bg-card rounded-lg shadow border border-border">
+              <BookOpen className="w-8 h-8 text-accent mx-auto mb-3" />
+              <h3 className="font-semibold mb-2">Verifiable</h3>
+              <p className="text-sm text-muted-foreground">Track progress in real-time</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <StatsSection />
-
-      {/* Students Grid */}
       <StudentsGrid />
 
-      {/* How It Works */}
-      <HowItWorks />
-
-      {/* Call to Action */}
-      <section className="py-16 px-4 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-green-500/5">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Ready to Make a Difference?
-          </h2>
-          <p className="text-lg text-muted-foreground mb-8">
-            Join our community of sponsors and help students achieve their educational dreams with complete transparency.
+      <section className="py-12 px-4 bg-muted/20 relative z-10">
+        <div className="container mx-auto max-w-2xl text-center">
+          <h2 className="text-2xl font-bold mb-4">Ready to Help?</h2>
+          <p className="text-muted-foreground mb-6">
+            Connect your wallet and start supporting students today.
           </p>
-          {authenticated ? (
-            <Button
-              size="lg"
-              className="text-lg px-8 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 shadow-lg"
-            >
-              Start Sponsoring
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-          ) : (
-            <Button
-              size="lg"
-              className="text-lg px-8 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 shadow-lg"
-            >
-              Connect Wallet to Start
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
-          )}
+          <Button className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90">
+            Connect Wallet
+          </Button>
         </div>
       </section>
     </div>
