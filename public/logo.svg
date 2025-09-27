@@ -1,0 +1,51 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo circular con gradiente Holi -->
+  <circle cx="32" cy="32" r="30" fill="url(#holiGradient)" stroke="url(#holiBorder)" stroke-width="2"/>
+  
+  <!-- Libro/Educación central -->
+  <rect x="20" y="18" width="24" height="18" rx="2" fill="white" opacity="0.9"/>
+  <rect x="22" y="20" width="20" height="2" fill="url(#primaryColor)"/>
+  <rect x="22" y="24" width="16" height="1" fill="url(#secondaryColor)"/>
+  <rect x="22" y="27" width="18" height="1" fill="url(#accentColor)"/>
+  <rect x="22" y="30" width="14" height="1" fill="url(#primaryColor)"/>
+  
+  <!-- Partículas Holi flotantes -->
+  <circle cx="12" cy="15" r="3" fill="url(#primaryColor)" opacity="0.8"/>
+  <circle cx="52" cy="20" r="2.5" fill="url(#secondaryColor)" opacity="0.7"/>
+  <circle cx="15" cy="45" r="2" fill="url(#accentColor)" opacity="0.6"/>
+  <circle cx="48" cy="48" r="3.5" fill="url(#primaryColor)" opacity="0.8"/>
+  <circle cx="8" cy="35" r="2" fill="url(#secondaryColor)" opacity="0.7"/>
+  <circle cx="56" cy="40" r="2.5" fill="url(#accentColor)" opacity="0.6"/>
+  
+  <!-- Texto "V" estilizado -->
+  <text x="32" y="50" font-family="Comfortaa, cursive" font-size="16" font-weight="bold" fill="white" text-anchor="middle">V</text>
+  
+  <!-- Gradientes -->
+  <defs>
+    <linearGradient id="holiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B35;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#4ECDC4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A8E6CF;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="holiBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B35;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#4ECDC4;stop-opacity:0.8" />
+    </linearGradient>
+    
+    <linearGradient id="primaryColor" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF6B35;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF8E53;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="secondaryColor" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4ECDC4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#44A08D;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="accentColor" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#A8E6CF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#88D8A3;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+</svg>
